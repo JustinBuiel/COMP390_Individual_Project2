@@ -1,1 +1,3 @@
-# COMP390_Individual_Project2
+Justin Buiel 
+
+COMP390-001
