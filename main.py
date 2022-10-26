@@ -1,7 +1,6 @@
 import requests
 import utility_functions as util
 import db_utilities as db_util
-import sqlite3
 
 
 def main():
@@ -23,6 +22,7 @@ def main():
                 # get all the info we need to go through the loop
                 name = list_entry.get("name", None)
                 mass = list_entry.get("mass", None)
+                print(mass)
                 lat_str = list_entry["reclat"]
                 long_str = list_entry["reclong"]
                 lat = util.convert_string_to_numerical(list_entry["reclat"])

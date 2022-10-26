@@ -1,7 +1,31 @@
 """ This module contains all sql interactions with the database"""
 
 import sqlite3
-import utility_functions as util
+
+
+def _trim_bounding_box():
+    """ """
+
+    # geolocation bounding box -- (left,bottom,right,top)
+    bound_box_dict = {
+        'Africa_MiddleEast_Meteorites': (-17.8, -35.2, 62.2, 37.6),
+        'Europe_Meteorites': (-24.1, 36, 32, 71.1),
+        'Upper_Asia_Meteorites': (32.2, 35.8, 190.4, 72.7),
+        'Lower_Asia_Meteorites': (58.2, -9.9, 154, 38.6),
+        'Australia_Meteorites': (112.9, -43.8, 154.3, -11.1),
+        'North_America_Meteorites': (-168.2, 12.8, -52, 71.5),
+        'South_America_Meteorites': (-81.2, -55.8, -34.4, 12.6)
+    }
+
+    africa_coords = bound_box_dict["Africa_MiddleEast_Meteorites"]
+    europe_coords = bound_box_dict["Europe_Meteorites"]
+    up_asia_coords = bound_box_dict["Upper_Asia_Meteorites"]
+    low_asia_coords = bound_box_dict["Lower_Asia_Meteorites"]
+    australia_coords = bound_box_dict["Australia_Meteorites"]
+    north_am_coords = bound_box_dict["North_America_Meteorites"]
+    south_am_coords = bound_box_dict["South_America_Meteorites"]
+
+    return africa_coords, europe_coords, up_asia_coords, low_asia_coords, australia_coords, north_am_coords, south_am_coords
 
 
 def _make_table_1(db_cursor):
@@ -199,36 +223,35 @@ def filter_data_into_tables(name, mass, lat_str, long_str, lat, long, db_cursor)
     """ """
 
     africa_coords, europe_coords, up_asia_coords, low_asia_coords, \
-        australia_coords, north_am_coords, south_am_coords = util.trim_bounding_box()
+        australia_coords, north_am_coords, south_am_coords = _trim_bounding_box()
 
     if africa_coords[0] <= long <= africa_coords[2]:
         if africa_coords[1] <= lat <= africa_coords[3]:
             _put_in_africa(name, mass, lat_str, long_str, db_cursor)
-            return
+
     if europe_coords[0] <= long <= europe_coords[2]:
         if europe_coords[1] <= lat <= europe_coords[3]:
             _put_in_europe(name, mass, lat_str, long_str, db_cursor)
-            return
+
     if up_asia_coords[0] <= long <= up_asia_coords[2]:
         if up_asia_coords[1] <= lat <= up_asia_coords[3]:
             _put_in_up_asia(name, mass, lat_str, long_str, db_cursor)
-            return
+
     if low_asia_coords[0] <= long <= low_asia_coords[2]:
         if low_asia_coords[1] <= lat <= low_asia_coords[3]:
             _put_in_low_asia(name, mass, lat_str, long_str, db_cursor)
-            return
+
     if australia_coords[0] <= long <= australia_coords[2]:
         if australia_coords[1] <= lat <= australia_coords[3]:
             _put_in_australia(name, mass, lat_str, long_str, db_cursor)
-            return
+
     if north_am_coords[0] <= long <= north_am_coords[2]:
         if north_am_coords[1] <= lat <= north_am_coords[3]:
             _put_in_north_am(name, mass, lat_str, long_str, db_cursor)
-            return
+
     if south_am_coords[0] <= long <= south_am_coords[2]:
         if south_am_coords[1] <= lat <= south_am_coords[3]:
             _put_in_south_am(name, mass, lat_str, long_str, db_cursor)
-            return
 
 
 def shut_down_data_base(db_connection):

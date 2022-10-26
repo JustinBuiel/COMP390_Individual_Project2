@@ -11,12 +11,12 @@
       <friendly-headers value="false" />
       <quote-values-containing-separator value="true" />
       <quote-all-values value="false" />
-      <value-separator value="" />
-      <file-name value="" />
-      <file-location value="" />
+      <value-separator value="," />
+      <file-name value="Result 5.csv" />
+      <file-location value="C:\Users\Justin\Desktop" />
       <scope value="GLOBAL" />
       <destination value="FILE" />
-      <format value="EXCEL" />
+      <format value="CSV" />
       <charset value="windows-1252" />
       <charset value="windows-1252" />
     </export-instructions>
@@ -24,12 +24,12 @@
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
-    <show-object-properties value="false" />
+    <show-object-properties value="true" />
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="f05aac85-fd84-4243-bf95-ecddcf3224b7">
-      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[select count(*) from "South_America_Meteorites"]]></console>
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[select * from "South_America_Meteorites"]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
