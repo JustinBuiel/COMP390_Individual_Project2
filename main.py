@@ -11,7 +11,7 @@ import db_utilities as db_util
 
 def main():
     """ This function is the main function everything gets called from and returns to.
-    This houses the important setup parts as well as the main loop through the data """
+        This houses the important setup parts as well as the main loop through the data """
 
     # http get request and json conversion
     target_url_string: str = 'https://data.nasa.gov/resource/gh4g-9sfh.json'

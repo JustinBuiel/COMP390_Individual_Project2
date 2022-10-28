@@ -8,7 +8,7 @@ import sqlite3
 
 def _get_bounding_box():
     """ This private function returns the bounding box dictionary that
-    includes the coordinates we will test against """
+        includes the coordinates we will test against """
 
     # geolocation bounding box -- (left,bottom,right,top)
     bound_box_dict = {
@@ -49,8 +49,8 @@ def _get_table_names():
 
 def _make_tables(db_cursor, table_name):
     """ This private function takes the database cursor object and a table name as it's
-    parameters in order to create the 7 regions' tables. The table is also cleared
-    out so old data doesn't affect results """
+        parameters in order to create the 7 regions' tables. The table is also cleared
+        out so old data doesn't affect results """
 
     try:
         db_cursor.execute(f'''CREATE TABLE IF NOT EXISTS {table_name}(
@@ -65,7 +65,7 @@ def _make_tables(db_cursor, table_name):
 
 def _put_data_in_tables(name, mass, lat_str, long_str, db_cursor, table_name):
     """ This private function takes the entry data, database cursor object and a table name
-     as it's parameters in order to insert the meteorite data into the correct table """
+        as it's parameters in order to insert the meteorite data into the correct table """
 
     try:
         db_cursor.execute(f'''INSERT INTO {table_name} VALUES(?, ?, ?, ?)''',
@@ -79,7 +79,7 @@ def _put_data_in_tables(name, mass, lat_str, long_str, db_cursor, table_name):
 
 def set_up_database():
     """ This function sets up our database and then creates the tables. The function
-    returns the important connection and cursor objects for use throughout the program """
+        returns the important connection and cursor objects for use throughout the program """
 
     db_connection = None
 
@@ -105,8 +105,8 @@ def set_up_database():
 
 def filter_data_into_tables(name, mass, lat_str, long_str, lat, long, db_cursor):
     """ This function takes the entry data and the cursor object in order to filter
-     the meteorites into the correct regions. It does this by comparing the bounding
-     box coordinates to the numerical lat and long variables and calling the insertion function """
+        the meteorites into the correct regions. It does this by comparing the bounding
+        box coordinates to the numerical lat and long variables and calling the insertion function """
 
     table_names = _get_table_names()
 

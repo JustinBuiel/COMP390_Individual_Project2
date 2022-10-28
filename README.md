@@ -24,7 +24,8 @@ Memory: 762M\
 Cores: 8
 
 Edition	Windows 10 Home\
-Version	21H2\
+Version	22H2\
 Installed on	‎8/‎3/‎2020\
-OS build	19044.2006\
+OS build	19045.2193\
 Experience	Windows Feature Experience Pack 120.2212.4180.0
+

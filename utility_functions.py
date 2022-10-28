@@ -43,7 +43,7 @@ def _convert_string_to_numerical(in_string):
 
 def get_request(target_url: str):
     """ This function issues a GET request using the url passed in as the single parameter.
-    The response and status code are printed whether there is an error or the request is successful """
+        The response and status code are printed whether there is an error or the request is successful """
 
     try:
         response_object: requests.Response = requests.get(target_url)
@@ -58,8 +58,8 @@ def get_request(target_url: str):
 
 def convert_content_to_json(response_object: requests.Response):
     """ This function accepts a requests response object as it's single parameter and tries to
-    convert the object to a JSON object, this list format will make it easier to work with the data
-    'None' is returned if the conversion was unsuccessful """
+        convert the object to a JSON object, this list format will make it easier to work with the data
+        'None' is returned if the conversion was unsuccessful """
 
     try:
         json_object = response_object.json()
