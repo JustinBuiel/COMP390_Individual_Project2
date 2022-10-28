@@ -1,5 +1,6 @@
 """
-This module
+This module holds mostly miscellaneous functions that help with gathering
+information or converting data to more useful forms
 """
 
 import requests
@@ -42,8 +43,7 @@ def _convert_string_to_numerical(in_string):
 
 def get_request(target_url: str):
     """ This function issues a GET request using the url passed in as the single parameter.
-    The response and status code are printed whether there is an error or the request is successful.
-    The program exits if there is an error. """
+    The response and status code are printed whether there is an error or the request is successful """
 
     try:
         response_object: requests.Response = requests.get(target_url)
@@ -58,8 +58,8 @@ def get_request(target_url: str):
 
 def convert_content_to_json(response_object: requests.Response):
     """ This function accepts a requests response object as it's single parameter and tries to
-    convert the object to a JSON object
-    'None' is returned if the conversion was unsuccessful. """
+    convert the object to a JSON object, this list format will make it easier to work with the data
+    'None' is returned if the conversion was unsuccessful """
 
     try:
         json_object = response_object.json()
@@ -71,12 +71,14 @@ def convert_content_to_json(response_object: requests.Response):
 
 
 def get_entry_data(list_entry):
-    """ """
+    """ This function strips out only the required data as separate values for less clutter """
 
     name = list_entry.get('name', None)
     mass = list_entry.get('mass', None)
     lat_str = list_entry['reclat']
     long_str = list_entry['reclong']
+
+    # need a numerical value to test against
     lat = _convert_string_to_numerical(list_entry['reclat'])
     long = _convert_string_to_numerical(list_entry['reclong'])
 

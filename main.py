@@ -1,5 +1,7 @@
 """
-
+This module is the driver of the program that makes calls to the specialized
+functions in the utility modules. It holds the main loop through the data and
+some error handling by avoiding working on none type objects
 """
 
 import requests
@@ -8,6 +10,8 @@ import db_utilities as db_util
 
 
 def main():
+    """ This function is the main function everything gets called from and returns to.
+    This houses the important setup parts as well as the main loop through the data """
 
     # http get request and json conversion
     target_url_string: str = 'https://data.nasa.gov/resource/gh4g-9sfh.json'
@@ -35,7 +39,7 @@ def main():
 
         db_util.shut_down_data_base(db_connection)
         print('\nDatabase fully populated, ending program.')
-    else:
+    else:  # if the json object isn't populated, stop the program, so it doesn't crash
         db_util.shut_down_data_base(db_connection)
         print('No data to operate on, exiting program...')
 

@@ -29,7 +29,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="f05aac85-fd84-4243-bf95-ecddcf3224b7">
-      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[select * from "South_America_Meteorites"]]></console>
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[select count(*) from "Europe_Meteorites"]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

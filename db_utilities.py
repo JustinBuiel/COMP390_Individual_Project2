@@ -1,12 +1,14 @@
 """
 This module contains all sql interactions with the database
+the supporting functions are all private including insertions into tables for security
 """
 
 import sqlite3
 
 
 def _get_bounding_box():
-    """ """
+    """ This private function returns the bounding box dictionary that
+    includes the coordinates we will test against """
 
     # geolocation bounding box -- (left,bottom,right,top)
     bound_box_dict = {
@@ -22,7 +24,7 @@ def _get_bounding_box():
 
 
 def _trim_bounding_box():
-    """ """
+    """ This private function reduces the bounding box dictionary into tuples for each region """
 
     bound_box_dict = _get_bounding_box()
 
@@ -38,13 +40,17 @@ def _trim_bounding_box():
 
 
 def _get_table_names():
+    """ This private function returns the region names for use when creating and interacting with the tables """
+
     table_names = ['Africa_MiddleEast_Meteorites', 'Europe_Meteorites', 'Upper_Asia_Meteorites',
                    'Lower_Asia_Meteorites', 'Australia_Meteorites', 'North_America_Meteorites', 'South_America_Meteorites']
     return table_names
 
 
 def _make_tables(db_cursor, table_name):
-    """ """
+    """ This private function takes the database cursor object and a table name as it's
+    parameters in order to create the 7 regions' tables. The table is also cleared
+    out so old data doesn't affect results """
 
     try:
         db_cursor.execute(f'''CREATE TABLE IF NOT EXISTS {table_name}(
@@ -58,7 +64,8 @@ def _make_tables(db_cursor, table_name):
 
 
 def _put_data_in_tables(name, mass, lat_str, long_str, db_cursor, table_name):
-    """ """
+    """ This private function takes the entry data, database cursor object and a table name
+     as it's parameters in order to insert the meteorite data into the correct table """
 
     try:
         db_cursor.execute(f'''INSERT INTO {table_name} VALUES(?, ?, ?, ?)''',
@@ -71,17 +78,20 @@ def _put_data_in_tables(name, mass, lat_str, long_str, db_cursor, table_name):
 
 
 def set_up_database():
-    """ """
+    """ This function sets up our database and then creates the tables. The function
+    returns the important connection and cursor objects for use throughout the program """
 
     db_connection = None
 
     try:
+        # initialize the database and its important connection/cursor objects
         db_name = 'important_meteorites.db'
         db_connection = sqlite3.connect(db_name)
         db_cursor = db_connection.cursor()
 
         print('Successfully connected to database')
 
+        # create the tables by passing a table to the _make_tables function
         table_names = _get_table_names()
         for table_name in table_names:
             _make_tables(db_cursor, table_name)
@@ -94,14 +104,20 @@ def set_up_database():
 
 
 def filter_data_into_tables(name, mass, lat_str, long_str, lat, long, db_cursor):
-    """ """
+    """ This function takes the entry data and the cursor object in order to filter
+     the meteorites into the correct regions. It does this by comparing the bounding
+     box coordinates to the numerical lat and long variables and calling the insertion function """
+
     table_names = _get_table_names()
 
+    # get the tuples from the dictionary for less clutter
     africa_coords, europe_coords, up_asia_coords, low_asia_coords, \
         australia_coords, north_am_coords, south_am_coords = _trim_bounding_box()
 
+    # the nested ifs check whether the current meteorite fits in the region
     if africa_coords[0] <= long <= africa_coords[2]:
         if africa_coords[1] <= lat <= africa_coords[3]:
+            # if match is found, insert the data into the table
             _put_data_in_tables(name, mass, lat_str, long_str, db_cursor, table_names[0])
 
     if europe_coords[0] <= long <= europe_coords[2]:
@@ -130,7 +146,7 @@ def filter_data_into_tables(name, mass, lat_str, long_str, lat, long, db_cursor)
 
 
 def shut_down_data_base(db_connection):
-    """ """
+    """ This function actually populates the database tables and disconnects from the database """
 
     db_connection.commit()
     db_connection.close()
